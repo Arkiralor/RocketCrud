@@ -1,4 +1,5 @@
 #![allow(warnings)]
+use dotenv::dotenv;
 use rocket::{form::validate::contains, serde::json::*, *};
 
 mod libs;
@@ -20,5 +21,6 @@ fn post_index_controller(req: Json<DummyRequest>) -> Json<DummyResponse> {
 
 #[launch]
 fn rocket() -> _ {
+    dotenv().ok();
     rocket::build().mount("/", routes![get_index_controller, post_index_controller])
 }
